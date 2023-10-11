@@ -16,6 +16,12 @@
     <Compile Update="OrderWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="SellWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="WarehouseWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="Chart.xaml">
@@ -28,6 +34,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="OrderWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SellWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="WarehouseWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

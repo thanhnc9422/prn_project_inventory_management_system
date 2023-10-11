@@ -27,11 +27,13 @@ namespace IMS_project_prn221
 
         private void WarehousesLLQ_Click(object sender, RoutedEventArgs e)
         {
-
+            WarehouseWindow warehouseWindow = new WarehouseWindow();
+            warehouseWindow.Show();
         }
         private void WarehousesCG_Click(object sender, RoutedEventArgs e)
         {
-
+            WarehouseWindow warehouseWindow = new WarehouseWindow();
+            warehouseWindow.Show();
         }
         private void Chart_Click(object sender, RoutedEventArgs e)
         {
@@ -40,7 +42,8 @@ namespace IMS_project_prn221
         }
         private void Sell_Click(object sender, RoutedEventArgs e)
         {
-
+            SellWindow sellWindow = new SellWindow(); 
+            sellWindow.Show();
         }
         private void ViewEmployees_Click(object sender, RoutedEventArgs e)
         {

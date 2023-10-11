@@ -1,0 +1,70 @@
+﻿<Window x:Class="IMS_project_prn221.SellWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IMS_project_prn221"
+        mc:Ignorable="d"
+        Title="SellWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="0,0,10,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <ListView x:Name="productListView" Grid.Column="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tên Mặt Hàng" Width="150"/>
+                        <GridViewColumn Header="Số Lượng" Width="80"/>
+                        <GridViewColumn Header="Đơn Giá" Width="80"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <ListView x:Name="cartListView" Height="250" Grid.Row="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tên Mặt Hàng" Width="150"/>
+                        <GridViewColumn Header="Số Lượng" Width="80"/>
+                        <GridViewColumn Header="Đơn Giá" Width="80"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Grid Grid.Row="1" Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Content="quantity" Grid.Row="0" Grid.Column="0"/>
+                <TextBox x:Name="quantityTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,200,0"/>
+                <Label Content="price per product:"  Grid.Row="1" Grid.Column="0"/>
+                <TextBox x:Name="priceTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,200,0"/>
+            </Grid>
+            
+            <TextBlock x:Name="totalTextBlock" Grid.Row="2" Text="Tổng: $0"/>
+            <TextBlock x:Name="profitTextBlock" Grid.Row="3" Text="Lợi nhuận: 10%"/>
+            <Button x:Name="sellButton" Grid.Row="6" Content="Sell" Click="SellButton_Click" Width="100"/>
+        </Grid>
+    </Grid>
+        
+</Window>

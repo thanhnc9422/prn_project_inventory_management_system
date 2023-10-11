@@ -28,3 +28,7 @@ C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\ChartWindow.baml
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\OrderWindow.g.cs
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\OrderWindow.baml
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\WarehouseWindow.g.cs
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\WarehouseWindow.baml
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\SellWindow.g.cs
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\SellWindow.baml

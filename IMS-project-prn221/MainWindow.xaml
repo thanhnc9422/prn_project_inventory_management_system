@@ -1,0 +1,30 @@
+﻿<Window x:Class="IMS_project_prn221.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IMS_project_prn221"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Menu>
+            <MenuItem Header="Warehouses Management">
+                <MenuItem Click="WarehousesLLQ_Click" Header="Lac Long Quan Warehouse" />
+                <MenuItem Click="WarehousesCG_Click" Header="Cau Giay Warehouse" />
+            </MenuItem>
+            <MenuItem Header="Sells Management">
+                <MenuItem Click="Chart_Click" Header="Chart" />
+                <MenuItem Click="Sell_Click" Header="Sell" />
+                <MenuItem Click="SellHistory_Click" Header="Sell History" />
+            </MenuItem>
+            <MenuItem Header="Employees Management">
+                <MenuItem Click="ViewEmployees_Click" Header="View Employees" />
+                <MenuItem Click="AddEmployee_Click" Header="Add Employee" />
+            </MenuItem>
+        <MenuItem Header="Order Management">
+            <MenuItem Click="OrderHistory_Click" Header="Order History" />
+            <MenuItem Click="Order_Click" Header="Add Order" />
+        </MenuItem>
+        </Menu>
+    </Grid>
+</Window>

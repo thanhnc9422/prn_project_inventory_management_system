@@ -64,7 +64,7 @@ namespace IMS_project_prn221
         private void Order_Click(object sender, RoutedEventArgs e)
         {
             OrderWindow orderWindow = new OrderWindow();
-        orderWindow.Show();
+           orderWindow.Show();
         }
 }
     

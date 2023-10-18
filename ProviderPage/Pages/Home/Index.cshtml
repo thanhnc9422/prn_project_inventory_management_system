@@ -1,0 +1,108 @@
+﻿@page "/home"
+@model ProviderPage.Pages.Home.IndexModel
+@{
+}
+<h1>Xin chào! @Model.Provider.ProviderName</h1>
+<div class="row">
+
+
+
+
+    <div class="col-md-4">
+<form method="post" asp-page-handler="AddNewOrUpdate">
+    <div class="form-group">
+                <label for="ProductId">Id sản phẩm: </label>
+                <input name="ProductId" value="@(Model.productSelected.ProductId == 0 ? "":Model.productSelected.ProviderId)" class="form-control" />
+        <label for="ProductName">tên sản phẩm: </label>
+                <input name="ProductName" value="@(Model.productSelected == null? "":Model.productSelected.ProductName)" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="ProductDescription">Mô tả Sản phẩm: </label>
+                <input name="ProductDescription" value=@(Model.productSelected == null? "":Model.productSelected.ProductDescription) class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="ProductCategory">Thể loại: </label>
+        <select name="ProductCategory" class="form-control">
+                    @foreach(var p in Model.listProduct)
+                    {
+                        if (Model.productSelected.ProductId == p.ProductId)
+                        {
+                            <option value="@p.ProductCategory" selected>@p.ProductCategory</option>
+                        }
+                        <option value="@p.ProductCategory">@p.ProductCategory</option>
+        }
+        </select>
+    </div>
+    <div style="margin-top:10px" class="row">
+    <div class="form-group col-md-4">
+                    <input value=@(Model.productSelected == null? "":Model.productSelected.PackedHeight) name="PackedHeight"  placeholder="Chiều cao" class="form-control" />
+    </div>
+
+    
+    <div class="form-group col-md-4">
+                    <input value=@(Model.productSelected == null? "":Model.productSelected.PackedWidth) name="PackedWidth"  placeholder="Chiều rộng" class="form-control" />
+    </div>
+
+    <div class="form-group col-md-4">
+                    <input value=@(Model.productSelected == null? "":Model.productSelected.PackedDepth) name="PackedDepth"  placeholder="chiều sâu" class="form-control" />
+    </div>
+            </div>
+
+    <div class="form-group">
+        <label for="OriginPrice">Giá gốc: </label>
+                <input value=@(Model.productSelected == null? "":Model.productSelected.OriginPrice) name="OriginPrice" class="form-control" />
+
+    </div>
+
+            <button style="margin-top:10px" type="submit" class="btn btn-primary">Lưu</button>
+
+</form>
+    </div>
+
+
+
+
+
+
+    <div class="col-md-8">
+        <table class="table table-bordered text-md-center">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Mô tả</th>
+                    <th>kích thước (C x R x S)</th>
+                    <th>Giá gốc</th>
+                    <th>Action</th>
+                    <!-- Thêm các tiêu đề cột khác nếu cần -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model.listProduct)
+                {
+                    if (p.Refrigerated == true) { 
+                    <tr>
+                        <td>@p.ProductName</td>
+                        <td>@p.ProductDescription</td>
+                        <td>@p.PackedHeight x @p.PackedWidth x @p.PackedDepth</td>
+                        <td>@p.OriginPrice</td>
+                        <td> 
+                            <form method="post" asp-page-handler="DeleteProduct">
+                                <input value="@p.ProductId" style="display:none" name="productId"/>
+                                <button type="submit" style="margin: 5px" class="btn btn-danger">xóa</button>
+                            </form> 
+                            
+                            <form method="post" asp-page-handler="SelectedProduct">
+                                <input value="@p.ProductId" style="display:none" name="productId" />
+                                <button type="submit" style="margin: 5px" id="updateButton" class="btn btn-primary">sửa</button>
+                                </form></td>
+                        <!-- Thêm dữ liệu cho bảng -->
+                    </tr>
+                    }
+                }
+               
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿@* @page
+@model ProviderPage.Pages.List.IndexModel
+@{
+}
+<h1>Service Manager</h1>
+<form method="get">
+    <div>
+        <p>Room</p>
+        <input type="text" name="room" value="@Model.Room"/>
+        <div>
+            <button type="submit">Search</button>
+        </div>
+    </div>
+</form>
+<h1>List of Service @Model.Services.Count</h1>
+<form method="post" enctype="multipart/form-data">
+    <div>
+        <input type="file" name="inputFile"/>
+        <button type="submit">Import</button>
+    </div>
+
+</form>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Room title</th>
+            <th>Free type</th>
+            <th>Month</th>
+            <th>Year</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var service in Model.Services)
+        {
+           <tr>
+               <td>@service.RoomTitle</td>
+               <td>@service.FeeType</td>
+               <td>@service.Month</td>
+                <td>@service.Year</td>
+                <td>@service.Amount</td>
+                @if (service.Employee == null)
+                {
+                    <td>unpaid</td>
+                }
+                else
+                {
+                <td>Paid UserName: @service.EmployeeNavigation.Name</td>    
+                }
+            </tr>    
+        }
+    </tbody>
+</table>
+ *@

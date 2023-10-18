@@ -8,9 +8,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Menu>
-            <MenuItem Header="Warehouses Management">
-                <MenuItem Click="WarehousesLLQ_Click" Header="Lac Long Quan Warehouse" />
-                <MenuItem Click="WarehousesCG_Click" Header="Cau Giay Warehouse" />
+            <MenuItem x:Name="whName" Header="Warehouses Management">
             </MenuItem>
             <MenuItem Header="Sells Management">
                 <MenuItem Click="Chart_Click" Header="Chart" />

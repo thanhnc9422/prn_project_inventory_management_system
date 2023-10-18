@@ -1,0 +1,84 @@
+﻿@page "/order"
+@model ProviderPage.Pages.Order.IndexModel
+@{
+}
+<h1>Hello @Model.Provider.ProviderName</h1>
+<div class="row">
+
+
+
+
+    <div class="col-md-6">
+        <h4>Đơn hàng đã được giao</h4>
+        <table class="table table-bordered text-md-center">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Thời gian bên Warehouse muốn nhận hàng</th>
+                    <th>Thời gian thực tế bên Warehouse nhận hàng</th>
+                    <th>Thời gian đặt hàng</th>
+                    <th>Trạng thái</th>
+                    <!-- Thêm các tiêu đề cột khác nếu cần -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model.orderDetail)
+                {
+                    if (p.ActualDate != null)
+                    {
+                        <tr>
+                            <td>@p.Product.ProductName</td>
+                            <td>@p.ExpectedDate</td>
+                            <td>@p.ActualDate</td>
+                            <td>@p.OrderDate</td>
+                            <td>@(p.ActualDate == null ? "faill" : "success")</td>
+                        </tr>
+                    }
+                   
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <div class="col-md-6">
+        <h4>Đơn hàng đang xử lý</h4>
+        <table class="table table-bordered text-md-center">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng cần nhập</th>
+                    <th>địa chỉ giao hàng</th>
+                    <th>Tổng giá</th>
+                    <th>Action</th>
+                    <!-- Thêm các tiêu đề cột khác nếu cần -->
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model.orderDetail)
+                {
+                    if (p.ActualDate == null)
+                    {
+                        <tr>
+                            <td>@p.Product.ProductName</td>
+                            <td>@p.OrderQuantity</td>
+                            <td>@p.Warehouse.Location</td>
+                            <td>@p.TotalPayment</td>
+
+                            <td>
+                                <form method="post" asp-page-handler="SuccessOrder">
+                                    <input value="@p.OrderDetailId" style="display:none" name="OrderDetailId" />
+                                    <button type="submit" style="margin: 5px" class="btn btn-primary">giao hàng thành công</button>
+                                </form>
+                            </td>
+                            <!-- Thêm dữ liệu cho bảng -->
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

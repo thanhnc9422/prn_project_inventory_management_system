@@ -19,12 +19,14 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="itemListView" Grid.Column="0" Grid.Row="1">
+            <Label Content="Chọn Nhà Cung Cấp:" Grid.Row="0"/>
+            <ComboBox x:Name="supplierComboBox" Grid.Row="0" Height="18" Width="100" Margin="-190 0 0 0" SelectionChanged="supplierComboBox_SelectionChanged"/>
+            <ListView x:Name="itemListView" Grid.Column="0" Grid.Row="2">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Tên Mặt Hàng" Width="150"/>
-                        <GridViewColumn Header="Số Lượng" Width="80"/>
-                        <GridViewColumn Header="Đơn Giá" Width="80"/>
+                        <GridViewColumn Header="Tên Mặt Hàng" Width="150" DisplayMemberBinding="{Binding Path=Product.ProductName}"/>
+                        <GridViewColumn Header="Số Lượng" Width="80" DisplayMemberBinding="{Binding Path=QuantityAvaiable}"/>
+                        <GridViewColumn Header="Đơn Giá" Width="80" DisplayMemberBinding="{Binding Path=Product.OriginPrice}"/>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -36,17 +38,20 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <lvc:PieChart Name="pieChartRefri" Width="200" Height="200" Grid.Column="1" Grid.Row="0">
+            <lvc:PieChart Name="pieChartRefri" Width="200" Height="200" Grid.Row="0">
                 <lvc:PieChart.Series>
-                    <lvc:PieSeries Title="Series 1" Values="10" DataLabels="True" Fill="Blue"/>
-                    <lvc:PieSeries Title="Series 2" Values="90" DataLabels="True" Fill="Green"/>
-                    <lvc:PieSeries Title="Series 1" Values="10" DataLabels="True" Fill="Gray"/>
+                    <lvc:PieSeries x:Name="percentWh" DataLabels="True" Fill="Blue"/>
+                    <lvc:PieSeries x:Name="percentPd" DataLabels="True" Fill="Gray"/>
                 </lvc:PieChart.Series>
             </lvc:PieChart>
-            <Label Content="Chọn Nhà Cung Cấp:" Grid.Row="1"/>
-            <ComboBox x:Name="supplierComboBox" Grid.Row="2"/>
-
+           
+            <Label Content="lô hàng được thêm gần nhất:" Grid.Row="3"/>
+            <Label x:Name="productNewAdd" Grid.Row="4"/>
+            <Label x:Name="quanlityAdd" Grid.Row="5"/>
+            <Label x:Name="timeAdd" Grid.Row="6"/>
         </Grid>
 
        

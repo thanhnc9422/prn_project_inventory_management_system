@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\App.xaml
-61346356022
+7461913116
 
-18-317471261
+19-1356613269
 234-802026251
-Chart.xaml;ChartWindow.xaml;MainWindow.xaml;OrderWindow.xaml;SellWindow.xaml;WarehouseWindow.xaml;
+Chart.xaml;ChartWindow.xaml;HistoryOrderWindow.xaml;MainWindow.xaml;OrderWindow.xaml;SellWindow.xaml;WarehouseWindow.xaml;
 
 False
 

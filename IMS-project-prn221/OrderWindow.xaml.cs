@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,7 +45,7 @@ namespace IMS_project_prn221
 
             foreach (var Warehouse in listWarehouse)
             {
-                warehouseTextBox.Items.Add(Warehouse.WarehouseName + " còn trống " + (((calVOfWarehouse50Percent(Warehouse.WarehouseId) - calVOfProduct(Warehouse.WarehouseId)) * 100)/ calVOfWarehouse50Percent(Warehouse.WarehouseId)).ToString("0.00") + "%");
+                warehouseTextBox.Items.Add(Warehouse.WarehouseName + " còn trống " + (((calVOfProduct(Warehouse.WarehouseId)) * 100)/ calVOfWarehouse50Percent(Warehouse.WarehouseId)).ToString("0.00") + "%");
             }
         }
         private void warehouseTextBox_SelectionChanged(object sender, RoutedEventArgs e) { 
@@ -53,7 +54,10 @@ namespace IMS_project_prn221
             string[] parts = selectedValue.Split(' ');
             string result = parts[0];
             warehouseId = _context.Warehouses.FirstOrDefault(x => x.WarehouseName.Equals(result.ToString())).WarehouseId;
-            
+            WarehouseTextBlock.Text = warehouseId+"";
+            totalVExistTextBlock.Text = (calVOfProduct(warehouseId) * 100 / calVOfWarehouse50Percent(warehouseId)).ToString("0.00") + " %";
+
+
         }
         private void supplierComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
@@ -80,15 +84,23 @@ namespace IMS_project_prn221
            var item = (sender as ListView).SelectedItem;
             if (item != null) {
                 Product product = item as Product;
+                ProductNameTextBlock.Text = product.ProductName;
                 productPrice = (float)((Product)item).OriginPrice;
                 productId = product.ProductId;
-                totalAmountTextBlock.Text = (productAmount * productPrice).ToString();
-                float percentNeed = (float)(product.PackedWidth * product.PackedDepth * product.PackedHeight * Int32.Parse(quantityTextBox.Text)) *100/ calVOfWarehouse50Percent(warehouseId);
-                totalVTextBlock.Text = percentNeed.ToString() + "%";
+                totalAmountTextBlock.Text = (productAmount * productPrice).ToString() +" $";
+                if (warehouseTextBox.Text != "") { 
+               
+                int whId = Int32.Parse(WarehouseTextBlock.Text);
+                if (whId != null && ! string.IsNullOrEmpty(quantityTextBox.Text)) { 
+                float percentNeed = (float)(product.PackedWidth * product.PackedDepth * product.PackedHeight * Int32.Parse(quantityTextBox.Text)) *100/ calVOfWarehouse50Percent(whId);
+
+                    totalVTextBlock.Text = percentNeed.ToString() + " %";
+                }
+                }
             }
         }
 
-        private float calVOfProduct(int warehouseId) {
+        public float calVOfProduct(int warehouseId) {
 
             var listProduct = from x in _context.Inventories
                               where x.WarehouseId == warehouseId
@@ -100,7 +112,7 @@ namespace IMS_project_prn221
             }
             return VOfAllProduct;
         }
-        private float calVOfWarehouse50Percent(int warehouseId)
+        public float calVOfWarehouse50Percent(int warehouseId)
         {
             Warehouse warehouse = _context.Warehouses.FirstOrDefault(x => x.WarehouseId == warehouseId);
 
@@ -109,7 +121,50 @@ namespace IMS_project_prn221
 
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Đã chọn: " +productAmount + " "+ productId+" "+productPrice+" "+providerId);
+            string VNeed = totalVTextBlock.Text;
+            string Vexist = totalVExistTextBlock.Text;
+            string[] VNeedParts = VNeed.Split(' ');
+            string[] VexistParts = Vexist.Split(' ');
+            string result0 = VNeedParts[0];
+            string result1 = VexistParts[0];
+
+            if (float.Parse(result0) + float.Parse(result1) > 100)
+            {
+                MessageBox.Show("không thể đặt hàng vì số lượng sản phẩm quá lớn");
+            }
+
+            else {
+                string providerName = ProviderTextBlock.Text;
+                string[] partProvider = providerName.Split(' ');
+                string resultPartProvider = partProvider[0];
+
+                string dateCurrent = DateTime.Now.ToString("dd/MM/yyyy");
+                DateTime formatteddateCurrent = DateTime.ParseExact(dateCurrent, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                DateTime dateExpect = (DateTime)datePicker.SelectedDate;
+
+                DateTime formattedDateTime = DateTime.ParseExact(dateExpect.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                string price = totalAmountTextBlock.Text;
+                string[] part = price.Split(' ');
+                string result = part[0];
+                int ProviderId = _context.Providers.FirstOrDefault(x => x.ProviderName.Equals(ProviderTextBlock.Text)).ProviderId;
+                int ProductId = _context.Products.FirstOrDefault(x => x.ProductName.Equals(ProductNameTextBlock.Text)).ProductId;
+                OrderDetail order = new OrderDetail() {
+                    ExpectedDate = formattedDateTime,
+                    OrderQuantity = Int32.Parse(quantityTextBox.Text),
+                    OrderDate = formatteddateCurrent,
+                    ProviderId = ProviderId,
+                    ProductId = ProductId,
+                    TotalPayment = decimal.Parse(result),
+                    WarehouseId = Int32.Parse(WarehouseTextBlock.Text)
+
+                };
+                
+                
+                _context.OrderDetails.AddRange(order);
+                _context.SaveChanges();          
+                MessageBox.Show("đặt hàng thành công");
+
+            }
         }
     }
 }

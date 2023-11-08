@@ -1,0 +1,60 @@
+﻿<Window x:Class="IMS_project_prn221.WarehouseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IMS_project_prn221"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        mc:Ignorable="d"
+        Title="WarehouseWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Chọn Nhà Cung Cấp:" Grid.Row="0"/>
+            <ComboBox x:Name="supplierComboBox" Grid.Row="0"  Width="100" Margin="-190 0 0 0" SelectionChanged="supplierComboBox_SelectionChanged"/>
+            <ListView x:Name="itemListView" Grid.Column="0" Grid.Row="2">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tên Mặt Hàng" Width="150" DisplayMemberBinding="{Binding Path=Product.ProductName}"/>
+                        <GridViewColumn Header="Số Lượng" Width="80" DisplayMemberBinding="{Binding Path=QuantityAvaiable}"/>
+                        <GridViewColumn Header="Đơn Giá" Width="80" DisplayMemberBinding="{Binding Path=Product.OriginPrice}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <lvc:PieChart Name="pieChartRefri" Width="200" Height="200" Grid.Row="0">
+                <lvc:PieChart.Series>
+                    <lvc:PieSeries x:Name="percentWh"  DataLabels="True" Fill="Blue"/>
+                    <lvc:PieSeries x:Name="percentPd" DataLabels="True" Fill="Gray"/>
+                </lvc:PieChart.Series>
+            </lvc:PieChart>
+           
+            <Label Content="lô hàng được thêm gần nhất:" Grid.Row="3"/>
+            <Label x:Name="productNewAdd" Grid.Row="4"/>
+            <Label x:Name="quanlityAdd" Grid.Row="5"/>
+            <Label x:Name="timeAdd" Grid.Row="6"/>
+        </Grid>
+
+       
+        
+    </Grid>
+</Window>

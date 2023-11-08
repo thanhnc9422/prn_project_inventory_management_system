@@ -25,6 +25,7 @@ namespace IMS_project_prn221
 
         public MainWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             loadWareHouse();
         }

@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IMS_project_prn221"
         mc:Ignorable="d"
-        Title="OrderWindow" Height="500" Width="1100">
+        Title="OrderWindow" Height="550" Width="1000">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
         <!-- Phần bên trái -->
         <Grid Grid.Column="0" Margin="0,0,10,0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -33,19 +34,21 @@
             <ComboBox x:Name="supplierComboBox" Grid.Row="1" SelectionChanged="supplierComboBox_SelectionChanged"/>
 
             <Label Content="Nhập Số Lượng:" Grid.Row="4"/>
-            <TextBox x:Name="quantityTextBox" Grid.Row="5" SelectionChanged="quantityTextBox_SelectionChanged"/>
+            <TextBox x:Name="quantityTextBox" Grid.Row="5"/>
 
             <Label Content="Chọn Warehouse:" Grid.Row="2"/>
-            <ComboBox x:Name="warehouseTextBox" Grid.Row="3" SelectionChanged="warehouseTextBox_SelectionChanged"/>
+            <ComboBox x:Name="warehouseComboBox" Grid.Row="3"/>
 
             <Label Content="Chọn Ngày Nhận:" Grid.Row="6"/>
             <DatePicker x:Name="datePicker" Grid.Row="7"/>
 
             <Label Margin="0 20 0 0" Content="Đơn đặt hàng của bạn:" Grid.Row="8"/>
-            <Grid Grid.Row="9">
+            <Button Margin="-30 10 0 0" Content="Đặt hàng" Width="100" Grid.Row="9" Name="OrderButton" Click="OrderButton_Click"/>
+
+            <Grid Grid.Row="10">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1.5*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -54,38 +57,43 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Content="Tổng Tiền:" Grid.Row="0" Grid.Column="0"/>
-                <TextBlock x:Name="totalAmountTextBlock"  Grid.Row="0" Grid.Column="1"/>
-                <Label Content="Tổng thể tích cần:" Grid.Row="1" Grid.Column="0"/>
-                <TextBlock x:Name="totalVTextBlock"  Grid.Row="1" Grid.Column="1"/>
-                <Label Content="Thể tích hiện có:" Grid.Row="2" Grid.Column="0"/>
-                <TextBlock x:Name="totalVExistTextBlock"  Grid.Row="2" Grid.Column="1"/>
-                <Label Content="Sản phẩm bạn muốn đặt hàng:"  Grid.Row="3" Grid.Column="0"/>
-                <TextBlock x:Name="ProductNameTextBlock" Grid.Row="3" Grid.Column="1" Text="{Binding ProductName}" DataContext="{Binding SelectedItem, ElementName=itemListView}"/>
-                <Label Content="Thuộc nhà cung cấp:"  Grid.Row="4" Grid.Column="0"/>
-                <TextBlock x:Name="ProviderTextBlock" Grid.Row="4" Grid.Column="1" />
-                <Label Content="Warehouse chuyển hàng tới:"  Grid.Row="5" Grid.Column="0"/>
-                <TextBlock x:Name="WarehouseTextBlock" Grid.Row="5" Grid.Column="1" />
+                <Label Content="Tổng Tiền:" Grid.Row="1" Grid.Column="0"/>
+                <TextBlock x:Name="totalAmountTextBlock"  Grid.Row="1" Grid.Column="1"/>
+                <Label Content="Tổng thể tích cần:" Grid.Row="2" Grid.Column="0"/>
+                <TextBlock x:Name="totalVTextBlock"  Grid.Row="2" Grid.Column="1"/>
+                <Label Content="Thể tích hiện có:" Grid.Row="3" Grid.Column="0"/>
+                <TextBlock x:Name="totalVExistTextBlock"  Grid.Row="3" Grid.Column="1"/>
+                <Label Content="Sản phẩm bạn muốn đặt hàng:"  Grid.Row="4" Grid.Column="0"/>
+                <TextBlock x:Name="ProductNameTextBlock" Grid.Row="4" Grid.Column="1"/>
+                <Label Content="Thuộc nhà cung cấp:"  Grid.Row="5" Grid.Column="0"/>
+                <TextBlock x:Name="ProviderTextBlock" Grid.Row="5" Grid.Column="1" />
+                <Label Content="Warehouse chuyển hàng tới:"  Grid.Row="6" Grid.Column="0"/>
+                <TextBlock x:Name="WarehouseTextBlock" Grid.Row="6" Grid.Column="1" />
 
             </Grid>
-            <Button Margin="0 10 0 0" Content="Đặt hàng" Width="100" Grid.Row="10" Name="OrderButton" Click="OrderButton_Click"/>
+     
+                <Button Margin="-30 10 0 0" Grid.Row="11" Content="Xác nhận đặt hàng" Width="150"  Name="OrderConfirmButton" Click="OrderConfirmButton_Click"/>
+           
         </Grid>
 
         <!-- Phần bên phải (ListView) -->
-        <ListView x:Name="itemListView" Grid.Column="1" PreviewMouseLeftButtonUp="itemListView_PreviewMouseLeftButtonUp">
+        <ListView x:Name="itemListView" Grid.Column="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Product ID" Width="150" DisplayMemberBinding="{Binding Path=ProductID}" />
-                    <GridViewColumn Header="Product Name" Width="80" DisplayMemberBinding="{Binding Path=ProductName}" />
-                    <GridViewColumn Header="Product Description" Width="80" DisplayMemberBinding="{Binding Path=ProductDescription}"/>
-                    <GridViewColumn Header="Product Category" Width="80" DisplayMemberBinding="{Binding Path=ProductCategory}"/>
-                    <GridViewColumn Header="Packed Height" Width="80" DisplayMemberBinding="{Binding Path=PackedHeight}"/>
-                    <GridViewColumn Header="Packe Width" Width="80" DisplayMemberBinding="{Binding Path=PackedWidth}"/>
-                    <GridViewColumn Header="Packed Depth" Width="80" DisplayMemberBinding="{Binding Path=PackedDepth}"/>
-                    <GridViewColumn Header="Origin Price" Width="80" DisplayMemberBinding="{Binding Path=OriginPrice}"/>
+                    <GridViewColumn Header="ID" Width="80" DisplayMemberBinding="{Binding Path=ProductId}" />
+                    <GridViewColumn Header="Product Name" Width="150" DisplayMemberBinding="{Binding Path=ProductName}" />
+                    <GridViewColumn Header="Product Description" Width="190" DisplayMemberBinding="{Binding Path=ProductDescription}"/>
+                    <GridViewColumn Header="Product Category" Width="200" DisplayMemberBinding="{Binding Path=ProductCategory}"/>
+                    <GridViewColumn Header="Packed Height" Width="150" DisplayMemberBinding="{Binding Path=PackedHeight}"/>
+                    <GridViewColumn Header="Packe Width" Width="150" DisplayMemberBinding="{Binding Path=PackedWidth}"/>
+                    <GridViewColumn Header="Packed Depth" Width="150" DisplayMemberBinding="{Binding Path=PackedDepth}"/>
+                    <GridViewColumn Header="Origin Price" Width="150" DisplayMemberBinding="{Binding Path=OriginPrice}"/>
                 </GridView>
             </ListView.View>
         </ListView>
+
     </Grid>
+    
 </Window>

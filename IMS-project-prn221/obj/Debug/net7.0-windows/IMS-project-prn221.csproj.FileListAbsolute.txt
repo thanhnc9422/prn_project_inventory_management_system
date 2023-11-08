@@ -81,3 +81,9 @@ C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\bin\Debug\
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\bin\Debug\net7.0-windows\appsettings.json
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\HistoryOrderWindow.g.cs
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\HistoryOrderWindow.baml
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\bin\Debug\net7.0-windows\MaterialDesignColors.dll
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\bin\Debug\net7.0-windows\MaterialDesignThemes.Wpf.dll
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\bin\Debug\net7.0-windows\Microsoft.Xaml.Behaviors.dll
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\Login.g.cs
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\Login.baml
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\App.baml

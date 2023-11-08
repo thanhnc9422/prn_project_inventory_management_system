@@ -27,6 +27,7 @@ namespace IMS_project_prn221
         private readonly InventoryManagementContext _context = new InventoryManagementContext();
         public WarehouseWindow(int wareHouseId)
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             WareHouseId = wareHouseId;
             loadWin();
@@ -35,14 +36,14 @@ namespace IMS_project_prn221
             Inventory = _context.Inventories.Include(x => x.Product).Where(x => x.WarehouseId == WareHouseId).ToList();
             itemListView.ItemsSource = Inventory;
             float whcc = float.Parse(((calVOfWarehouse50Percent(WareHouseId) - calVOfProduct(WareHouseId)) * 100 / calVOfWarehouse50Percent(WareHouseId)).ToString("0.00"));
-            float pdcc = float.Parse(((calVOfProduct(WareHouseId)) * 100 / calVOfWarehouse50Percent(WareHouseId)).ToString("0.00"));
+            float pdcc = (float.Parse(((calVOfProduct(WareHouseId)) * 100 / calVOfWarehouse50Percent(WareHouseId)).ToString("0.00")));
             var provider = _context.Providers.ToList();
             foreach (var item in provider) {
                 supplierComboBox.Items.Add(item.ProviderName);
             }
             supplierComboBox.Items.Add("All");
-            percentWh.Values = new ChartValues<double> { whcc };
-            percentPd.Values = new ChartValues<double> { pdcc };
+            percentWh.Values = new ChartValues<float> { whcc };
+            percentPd.Values = new ChartValues<float> { pdcc };
             percentWh.Title = "% free";
             percentPd.Title = "sản phẩm chiếm";
             var recentProduct = _context.OrderDetails.OrderBy(p => p.ActualDate).Include(x => x.Product).Where(x => x.WarehouseId == WareHouseId).LastOrDefault();

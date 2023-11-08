@@ -29,9 +29,10 @@ namespace IMS_project_prn221
         private int warehouseId;
         private int productId;
         private int providerId;
-
+   
         public OrderWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
             OrderWindowLoad();
         }
@@ -45,60 +46,18 @@ namespace IMS_project_prn221
 
             foreach (var Warehouse in listWarehouse)
             {
-                warehouseTextBox.Items.Add(Warehouse.WarehouseName + " còn trống " + (((calVOfProduct(Warehouse.WarehouseId)) * 100)/ calVOfWarehouse50Percent(Warehouse.WarehouseId)).ToString("0.00") + "%");
+                warehouseComboBox.Items.Add(Warehouse.WarehouseName + " còn trống " + (((calVOfProduct(Warehouse.WarehouseId)) * 100)/ calVOfWarehouse50Percent(Warehouse.WarehouseId)).ToString("0.00") + "%");
             }
         }
-        private void warehouseTextBox_SelectionChanged(object sender, RoutedEventArgs e) { 
-                   ComboBox comboBox = (ComboBox)sender;
-                 string selectedValue = comboBox.SelectedItem.ToString();
-            string[] parts = selectedValue.Split(' ');
-            string result = parts[0];
-            warehouseId = _context.Warehouses.FirstOrDefault(x => x.WarehouseName.Equals(result.ToString())).WarehouseId;
-            WarehouseTextBlock.Text = warehouseId+"";
-            totalVExistTextBlock.Text = (calVOfProduct(warehouseId) * 100 / calVOfWarehouse50Percent(warehouseId)).ToString("0.00") + " %";
 
-
-        }
         private void supplierComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            ComboBox comboBox = (ComboBox)sender;
-            string selectedValue = comboBox.SelectedItem.ToString();
-            int ProviderId = _context.Providers.FirstOrDefault(provider => provider.ProviderName == selectedValue).ProviderId;
-            providerId = ProviderId;
-            var products = from x in _context.Products where x.ProviderId == ProviderId select x;
+            string selectedSupp = ((ComboBox)sender).SelectedItem.ToString();
+            int ProviderId = _context.Providers.FirstOrDefault(provider => provider.ProviderName == selectedSupp).ProviderId;
+            var products =_context.Products.Where(x => x.ProviderId == ProviderId).ToList();
             itemListView.ItemsSource = products.ToList();
-            ProviderTextBlock.Text = selectedValue;
         }
 
-        private void quantityTextBox_SelectionChanged(object sender, RoutedEventArgs e)
-        {
-            var item = (sender as TextBox).Text;
-            if (int.TryParse(item, out int x)) {
-                productAmount = Int32.Parse(item);
-                totalAmountTextBlock.Text = (productAmount * productPrice).ToString() + " $";
-            }
-        }
-
-        private void itemListView_PreviewMouseLeftButtonUp(object sender, RoutedEventArgs e)
-        {
-           var item = (sender as ListView).SelectedItem;
-            if (item != null) {
-                Product product = item as Product;
-                ProductNameTextBlock.Text = product.ProductName;
-                productPrice = (float)((Product)item).OriginPrice;
-                productId = product.ProductId;
-                totalAmountTextBlock.Text = (productAmount * productPrice).ToString() +" $";
-                if (warehouseTextBox.Text != "") { 
-               
-                int whId = Int32.Parse(WarehouseTextBlock.Text);
-                if (whId != null && ! string.IsNullOrEmpty(quantityTextBox.Text)) { 
-                float percentNeed = (float)(product.PackedWidth * product.PackedDepth * product.PackedHeight * Int32.Parse(quantityTextBox.Text)) *100/ calVOfWarehouse50Percent(whId);
-
-                    totalVTextBlock.Text = percentNeed.ToString() + " %";
-                }
-                }
-            }
-        }
 
         public float calVOfProduct(int warehouseId) {
 
@@ -119,51 +78,106 @@ namespace IMS_project_prn221
             return (float)((float)(warehouse.Height * warehouse.Length * warehouse.Width)*0.5);
         }
 
+      
         private void OrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            string selectedValue = warehouseComboBox.SelectedItem.ToString();
+            string[] parts = selectedValue.Split(' ');
+            string result = parts[0];
+            int warehouseid = ((Warehouse)(_context.Warehouses.FirstOrDefault(x => x.WarehouseName.Equals(result)))).WarehouseId;
+            Product pr = itemListView.SelectedItem as Product;
+            if (pr != null)
+            {
+
+                try
+                {
+                    productAmount = Int32.Parse(quantityTextBox.Text);
+                    totalAmountTextBlock.Text = (productAmount * pr.OriginPrice).ToString() + " $";
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(e.ToString());
+                }
+
+                try
+                {
+                    float percentNeed = (float)(pr.PackedWidth * pr.PackedDepth * pr.PackedHeight * Int32.Parse(quantityTextBox.Text)) * 100 / calVOfWarehouse50Percent(warehouseid);
+                    totalVTextBlock.Text = percentNeed.ToString() + " %";
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(e.ToString());
+                }
+
+                try
+                {
+                    warehouseId = _context.Warehouses.FirstOrDefault(x => x.WarehouseName.Equals(result.ToString())).WarehouseId;
+                    totalVExistTextBlock.Text = (calVOfProduct(warehouseId) * 100 / calVOfWarehouse50Percent(warehouseId)).ToString("0.00") + " %";
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(e.ToString());
+                }
+
+                ProductNameTextBlock.Text = pr.ProductName;
+
+                ProviderTextBlock.Text = supplierComboBox.SelectedItem.ToString();
+
+                WarehouseTextBlock.Text = result;
+            }
+            else {
+                MessageBox.Show("bạn chưa chọn sản phẩm");
+            }
+        }
+
+        private void OrderConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             string VNeed = totalVTextBlock.Text;
             string Vexist = totalVExistTextBlock.Text;
             string[] VNeedParts = VNeed.Split(' ');
             string[] VexistParts = Vexist.Split(' ');
-            string result0 = VNeedParts[0];
-            string result1 = VexistParts[0];
-
-            if (float.Parse(result0) + float.Parse(result1) > 100)
+            string splitVNeed = VNeedParts[0];
+            string splitVVexist = VexistParts[0];
+            warehouseId = _context.Warehouses.FirstOrDefault(x => x.WarehouseName.Equals(WarehouseTextBlock.Text)).WarehouseId;
+            if (float.Parse(splitVNeed) + float.Parse(splitVVexist) > 100)
             {
                 MessageBox.Show("không thể đặt hàng vì số lượng sản phẩm quá lớn");
             }
 
-            else {
-                string providerName = ProviderTextBlock.Text;
-                string[] partProvider = providerName.Split(' ');
-                string resultPartProvider = partProvider[0];
+            else
+            {
+                try
+                {
+                    string providerName = ProviderTextBlock.Text;
+                    string dateCurrent = DateTime.Now.ToString("dd/MM/yyyy");
+                    DateTime formatteddateCurrent = DateTime.ParseExact(dateCurrent, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    DateTime dateExpect = (DateTime)datePicker.SelectedDate;
 
-                string dateCurrent = DateTime.Now.ToString("dd/MM/yyyy");
-                DateTime formatteddateCurrent = DateTime.ParseExact(dateCurrent, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                DateTime dateExpect = (DateTime)datePicker.SelectedDate;
+                    DateTime formattedDateTime = DateTime.ParseExact(dateExpect.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    string price = totalAmountTextBlock.Text;
+                    string[] part = price.Split(' ');
+                    string spilteTotal = part[0];
+                    int ProviderId = _context.Providers.FirstOrDefault(x => x.ProviderName.Equals(ProviderTextBlock.Text)).ProviderId;
+                    int ProductId = _context.Products.FirstOrDefault(x => x.ProductName.Equals(ProductNameTextBlock.Text)).ProductId;
+                    OrderDetail order = new OrderDetail()
+                    {
+                        ExpectedDate = formattedDateTime,
+                        OrderQuantity = Int32.Parse(quantityTextBox.Text),
+                        OrderDate = formatteddateCurrent,
+                        ProviderId = ProviderId,
+                        ProductId = ProductId,
+                        TotalPayment = decimal.Parse(spilteTotal),
+                        WarehouseId = warehouseId
 
-                DateTime formattedDateTime = DateTime.ParseExact(dateExpect.ToString("dd/MM/yyyy"), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                string price = totalAmountTextBlock.Text;
-                string[] part = price.Split(' ');
-                string result = part[0];
-                int ProviderId = _context.Providers.FirstOrDefault(x => x.ProviderName.Equals(ProviderTextBlock.Text)).ProviderId;
-                int ProductId = _context.Products.FirstOrDefault(x => x.ProductName.Equals(ProductNameTextBlock.Text)).ProductId;
-                OrderDetail order = new OrderDetail() {
-                    ExpectedDate = formattedDateTime,
-                    OrderQuantity = Int32.Parse(quantityTextBox.Text),
-                    OrderDate = formatteddateCurrent,
-                    ProviderId = ProviderId,
-                    ProductId = ProductId,
-                    TotalPayment = decimal.Parse(result),
-                    WarehouseId = Int32.Parse(WarehouseTextBlock.Text)
-
-                };
-                
-                
-                _context.OrderDetails.AddRange(order);
-                _context.SaveChanges();          
-                MessageBox.Show("đặt hàng thành công");
-
+                    };
+                    _context.OrderDetails.AddRange(order);
+                    _context.SaveChanges();
+                    MessageBox.Show("đặt hàng thành công");
+                }
+                catch (Exception) { 
+                MessageBox.Show(e.ToString());
+                }
+             
             }
         }
     }

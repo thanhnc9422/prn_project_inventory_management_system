@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IMS_project_prn221.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,39 +21,52 @@ namespace IMS_project_prn221
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly InventoryManagementContext _context = new InventoryManagementContext();
+
         public MainWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
+            loadWareHouse();
         }
 
-        private void WarehousesLLQ_Click(object sender, RoutedEventArgs e)
+        public void loadWareHouse()
         {
-
+            var wh = _context.Warehouses.ToList();
+            foreach (var whpart in wh)
+            {
+                MenuItem whItem = new MenuItem();
+                whItem.Header = whpart.WarehouseName;
+                whItem.Click += wh_Click;
+                whName.Items.Add(whItem);
+            }
         }
-        private void WarehousesCG_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
+
         private void Chart_Click(object sender, RoutedEventArgs e)
         {
-            ChartWindow chartWindow = new ChartWindow();    
+            ChartWindow chartWindow = new ChartWindow();
             chartWindow.Show();
         }
         private void Sell_Click(object sender, RoutedEventArgs e)
         {
-
+            SellWindow sellWindow = new SellWindow();
+            sellWindow.Show();
         }
         private void ViewEmployees_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewEmployees viewEmployees = new ViewEmployees();
+            viewEmployees.Show();
         }
         private void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
-
+            AddEmployees addEmployees = new AddEmployees();
+            addEmployees.Show();
         }
         private void OrderHistory_Click(object sender, RoutedEventArgs e)
         {
-         
+            HistoryOrderWindow historyOrderWindow = new HistoryOrderWindow();   
+            historyOrderWindow.Show();
         }
         private void SellHistory_Click(object sender, RoutedEventArgs e)
         {
@@ -61,8 +75,22 @@ namespace IMS_project_prn221
         private void Order_Click(object sender, RoutedEventArgs e)
         {
             OrderWindow orderWindow = new OrderWindow();
-        orderWindow.Show();
+            orderWindow.Show();
         }
-}
+        private void wh_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem whSelected = (MenuItem)sender;
+            var wh = _context.Warehouses.ToList();
+            foreach (var whpart in wh)
+            {
+                if (whSelected.Header.Equals(whpart.WarehouseName))
+                {
+                    WarehouseWindow warehouseWindow = new WarehouseWindow(whpart.WarehouseId);
+                    warehouseWindow.Show();
+                }
+            }
+
+        }
+    }
     
 }

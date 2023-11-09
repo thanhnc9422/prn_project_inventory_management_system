@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IMS_project_prn221.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,14 @@ namespace IMS_project_prn221
     /// </summary>
     public partial class Login : Window
     {
-        public Login()
+        private readonly InventoryManagementContext context;
+        public Login() { 
+        }
+        public Login(InventoryManagementContext context)
         {
+            this.context = context;
             InitializeComponent();
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -29,6 +35,22 @@ namespace IMS_project_prn221
             string username = UsernameTextBox.Text;
             string password = PasswordBox.Password;
 
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password)) {
+                MessageBox.Show("bạn chưa nhập username hoặc password!");
+            }
+            else {
+                Staff staff = context.Staff.FirstOrDefault(x => x.UserName.Equals(username) && x.PassWord.Equals(password));
+                if (staff != null)
+                {
+                    MainWindow main = new MainWindow(staff);
+                    main.Show();
+                    Login login = new Login();
+                    login.Visibility = Visibility.Collapsed;
+                }
+                else {
+                    MessageBox.Show("username hoặc password không đúng!");
+                }
+            }
             // Thực hiện xác thực người dùng ở đây và kiểm tra username và password
 
             //if (authenticationSuccessful)

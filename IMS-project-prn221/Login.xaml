@@ -20,8 +20,9 @@
 
         <materialDesign:Card Grid.Row="1" Margin="20">
             <StackPanel>
-                <Label />
+                <Label Content="Username"/>
                 <TextBox x:Name="UsernameTextBox"  Margin="10"/>
+                <Label Content="Password"/>
                 <PasswordBox x:Name="PasswordBox" Margin="10"/>
                 <Button Content="Login" Click="LoginButton_Click" HorizontalAlignment="Center" Width="100" Margin="10"/>
             </StackPanel>

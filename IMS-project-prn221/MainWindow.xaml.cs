@@ -1,18 +1,7 @@
 ﻿using IMS_project_prn221.Models;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace IMS_project_prn221
 {
@@ -22,12 +11,22 @@ namespace IMS_project_prn221
     public partial class MainWindow : Window
     {
         private readonly InventoryManagementContext _context = new InventoryManagementContext();
+        private Staff staff;
 
-        public MainWindow()
+        public MainWindow(Staff staff)
         {
+            this.staff = staff;
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
+
             loadWareHouse();
+            if (staff.RoleId == 2)
+            {
+
+                empManagement.Visibility = Visibility.Collapsed;
+                orderManagement.Visibility = Visibility.Collapsed;
+
+            }
         }
 
         public void loadWareHouse()
@@ -63,7 +62,7 @@ namespace IMS_project_prn221
         }
         private void OrderHistory_Click(object sender, RoutedEventArgs e)
         {
-            HistoryOrderWindow historyOrderWindow = new HistoryOrderWindow();   
+            HistoryOrderWindow historyOrderWindow = new HistoryOrderWindow();
             historyOrderWindow.Show();
         }
         private void SellHistory_Click(object sender, RoutedEventArgs e)
@@ -90,5 +89,5 @@ namespace IMS_project_prn221
 
         }
     }
-    
+
 }

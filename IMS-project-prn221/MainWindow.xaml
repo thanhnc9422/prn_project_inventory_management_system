@@ -15,11 +15,11 @@
                 <MenuItem Click="Sell_Click" Header="Sell" />
                 <MenuItem Click="SellHistory_Click" Header="Sell History" />
             </MenuItem>
-            <MenuItem Header="Employees Management">
+            <MenuItem x:Name="empManagement" Header="Employees Management">
                 <MenuItem Click="ViewEmployees_Click" Header="View Employees" />
                 <MenuItem Click="AddEmployee_Click" Header="Add Employee" />
             </MenuItem>
-        <MenuItem Header="Order Management">
+            <MenuItem  x:Name="orderManagement" Header="Order Management">
             <MenuItem Click="OrderHistory_Click" Header="Order History" />
             <MenuItem Click="Order_Click" Header="Add Order" />
         </MenuItem>

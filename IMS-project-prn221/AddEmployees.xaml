@@ -1,0 +1,89 @@
+﻿<Window x:Class="IMS_project_prn221.AddEmployees"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IMS_project_prn221"
+        mc:Ignorable="d"
+        Title="Add Employees" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Margin="0,0,10,0" Background="LightGray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Content="First Name" VerticalAlignment="Center" HorizontalAlignment="Left"  Grid.Column="0"  />
+            <TextBox Name="txtFirstName" Width="200" Grid.Row="0"  HorizontalAlignment="Right" Margin="5" Text="{Binding FirstName }" DataContext="{Binding SelectedItem,ElementName=EmployeeListsView}"   />
+
+            <Label Content="Last Name" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="1"  />
+            <TextBox Name="txtLastName" Width="200" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" Margin="5" Text="{Binding LastName }" DataContext="{Binding SelectedItem,ElementName=EmployeeListsView}" />
+
+            <Label Content="Address" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="2" />
+            <TextBox Name="txtAddress" Width="200" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Margin="5" Text="{Binding Address }" DataContext="{Binding SelectedItem,ElementName=EmployeeListsView}" />
+
+            <Label Content="Phone" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="3"  />
+            <TextBox Name="txtPhone" Width="200" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Margin="5" Text="{Binding Phone }" DataContext="{Binding SelectedItem,ElementName=EmployeeListsView}" />
+
+            <Label Content="Email" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="4"  />
+            <TextBox Name="txtEmail" Width="200" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Right" Margin="5" Text="{Binding Email }" DataContext="{Binding SelectedItem,ElementName=EmployeeListsView}"/>
+
+            <Label Content="Username" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="5"  />
+            <TextBox Name="txtUsername" Width="200" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" Margin="5" Text="{Binding UserName }" DataContext="{Binding SelectedItem,ElementName=EmployeeListsView}" />
+
+            <Label Content="Password" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="6"  />
+            <PasswordBox Name="txtPassword" Width="200" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" Margin="5"  />
+
+            <Label Content="Role" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="7"  />
+            <ComboBox Name="cmbRole" Width="200" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" Margin="5" Text="{Binding UserName }" DataContext="{Binding SelectedItem,ElementName=EmployeeListsView}" />
+
+            <Button x:Name="btnAddEmployee" Content="Add Employee" Click="AddEmployee_Click" Grid.Row="8" Margin="105,10,72,10" />
+            <Button x:Name="btnEditEmployee" Content="Edit" Click="EditEmployee_Click" Grid.Row="9" Margin="105,10,72,10" />
+            <Button Content="Cancel" Click="Cancel_Click" Grid.Row="10" Margin="105,8,72,2" />
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <ListView x:Name="EmployeeListsView" Height="400" Grid.Row="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="First Name" Width="80" DisplayMemberBinding="{Binding Path=FirstName }"/>
+                        <GridViewColumn Header="Last Name" Width="80" DisplayMemberBinding="{Binding  Path=LastName }"/>
+                        <GridViewColumn Header="Address" Width="150" DisplayMemberBinding="{Binding  Path=Address }"/>
+                        <GridViewColumn Header="Phone" Width="100" DisplayMemberBinding="{Binding  Path=Phone}"/>
+                        <GridViewColumn Header="Email" Width="100" DisplayMemberBinding="{Binding  Path=Email}"/>
+                        <GridViewColumn Header="User Name" Width="80" DisplayMemberBinding="{Binding  Path=UserName}"/>
+                        <GridViewColumn Header="Role" Width="80" DisplayMemberBinding="{Binding  Path=Role.RoleName}"/>
+
+                        <GridViewColumn Header="">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Delete" Click="DeleteButton_Click" Tag="{Binding}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+
+        </Grid>
+    </Grid>
+</Window>

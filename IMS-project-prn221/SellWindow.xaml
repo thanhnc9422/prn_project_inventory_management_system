@@ -11,18 +11,40 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
+
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Margin="0,0,10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="productListView" Grid.Column="0">
+
+            <Grid Grid.Row ="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Search Name :"/>
+                <TextBox x:Name="searchTextBox" Grid.Column="1" Margin="10" SelectionChanged="SearchTextBox_TextChanged"   />
+            </Grid>
+            <ListView x:Name="productListView"   Grid.Row ="1" SelectionChanged="ProductListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Tên Mặt Hàng" Width="150"/>
-                        <GridViewColumn Header="Số Lượng" Width="80"/>
-                        <GridViewColumn Header="Đơn Giá" Width="80"/>
+                        <GridViewColumn Header="Tên Mặt Hàng" Width="80"  DisplayMemberBinding="{Binding Path=Product.ProductName}"/>
+                        <GridViewColumn Header="Số Lượng" Width="80" DisplayMemberBinding="{Binding Path=QuantityAvaiable}"/>
+                        <GridViewColumn Header="Đơn Giá" Width="80" DisplayMemberBinding="{Binding Path=Product.OriginPrice }"/>
+                        <GridViewColumn Header="">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="+" Click="AddToCartButton_Click" Tag="{Binding}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
                     </GridView>
+
+
                 </ListView.View>
             </ListView>
         </Grid>
@@ -41,9 +63,17 @@
             <ListView x:Name="cartListView" Height="250" Grid.Row="0">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Tên Mặt Hàng" Width="150"/>
-                        <GridViewColumn Header="Số Lượng" Width="80"/>
-                        <GridViewColumn Header="Đơn Giá" Width="80"/>
+                        <GridViewColumn Header="Tên Mặt Hàng" Width="150" DisplayMemberBinding="{Binding Name }"/>
+                        <GridViewColumn Header="Số Lượng" Width="80" DisplayMemberBinding="{Binding Quantity }"/>
+                        <GridViewColumn Header="Đơn Giá" Width="80" DisplayMemberBinding="{Binding Price }"/>
+                        <GridViewColumn Header="Thành Tiền" Width="80" DisplayMemberBinding="{Binding Total}"/>
+                        <GridViewColumn Header="Actions">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Delete" Click="DeleteButton_Click" Tag="{Binding}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -55,17 +85,22 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Content="quantity" Grid.Row="0" Grid.Column="0"/>
+
+                <Label Content="quantity" Grid.Row="0" Grid.Column="0" Height="25" Grid.RowSpan="2" VerticalAlignment="Top"/>
                 <TextBox x:Name="quantityTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,200,0"/>
-                <Label Content="price per product:"  Grid.Row="1" Grid.Column="0"/>
+                <Label Content="price per product:"  Grid.Row="1" Grid.Column="0" Height="26" VerticalAlignment="Top"/>
                 <TextBox x:Name="priceTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,200,0"/>
+                <Label Content="Customer Name: "  Grid.Row="2" Grid.Column="0" Height="26" VerticalAlignment="Top"/>
+                <ComboBox x:Name="customerComboBox" Grid.Row="2" Grid.Column="1" Width="200" Margin="0,0,200,0"/>
+
             </Grid>
-            
-            <TextBlock x:Name="totalTextBlock" Grid.Row="2" Text="Tổng: $0"/>
-            <TextBlock x:Name="profitTextBlock" Grid.Row="3" Text="Lợi nhuận: 10%"/>
+
+            <TextBlock x:Name="totalTextBlock" Grid.Row="3" Text="Tổng: $0"/>
+            <TextBlock x:Name="profitTextBlock" Grid.Row="4" Text="Lợi nhuận: 10%"/>
             <Button x:Name="sellButton" Grid.Row="6" Content="Sell" Click="SellButton_Click" Width="100"/>
         </Grid>
     </Grid>
-        
+
 </Window>

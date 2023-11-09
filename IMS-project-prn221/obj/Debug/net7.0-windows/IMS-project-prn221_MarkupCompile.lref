@@ -1,11 +1,13 @@
 ﻿
-FC:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\App.xaml;;
-FC:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\Chart.xaml;;
-FC:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\ChartWindow.xaml;;
-FC:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\HistoryOrderWindow.xaml;;
-FC:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\Login.xaml;;
-FC:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\MainWindow.xaml;;
-FC:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\OrderWindow.xaml;;
-FC:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\SellWindow.xaml;;
-FC:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\WarehouseWindow.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\App.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\AddEmployees.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\Chart.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\ChartWindow.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\HistoryOrderWindow.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\Login.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\MainWindow.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\OrderWindow.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\SellWindow.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\ViewEmployees.xaml;;
+FE:\New folder\prn_project_inventory_management_system\IMS-project-prn221\WarehouseWindow.xaml;;
 

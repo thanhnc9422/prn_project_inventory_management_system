@@ -3179,19 +3179,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nguye\\.nuget\\packages\\": {}
+    "C:\\Users\\admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nguye\\OneDrive\\Desktop\\IMS-project-prn221\\ProviderPage\\ProviderPage.csproj",
+      "projectUniqueName": "E:\\New folder\\prn_project_inventory_management_system\\ProviderPage\\ProviderPage.csproj",
       "projectName": "ProviderPage",
-      "projectPath": "C:\\Users\\nguye\\OneDrive\\Desktop\\IMS-project-prn221\\ProviderPage\\ProviderPage.csproj",
-      "packagesPath": "C:\\Users\\nguye\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nguye\\OneDrive\\Desktop\\IMS-project-prn221\\ProviderPage\\obj\\",
+      "projectPath": "E:\\New folder\\prn_project_inventory_management_system\\ProviderPage\\ProviderPage.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "E:\\New folder\\prn_project_inventory_management_system\\ProviderPage\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nguye\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3259,7 +3259,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

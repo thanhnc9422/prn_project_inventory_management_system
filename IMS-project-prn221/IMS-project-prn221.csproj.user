@@ -30,6 +30,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="AddEmployees.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Chart.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -49,6 +52,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="SellWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ViewEmployees.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="WarehouseWindow.xaml">

@@ -55,11 +55,13 @@ namespace IMS_project_prn221
         }
         private void ViewEmployees_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewEmployees viewEmployees = new ViewEmployees();
+            viewEmployees.Show();
         }
         private void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
-
+            AddEmployees addEmployees = new AddEmployees();
+            addEmployees.Show();
         }
         private void OrderHistory_Click(object sender, RoutedEventArgs e)
         {

@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IMS_project_prn221"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
           Title="Inventory Management System - Login" Height="400" Width="600">
     <Grid>
@@ -21,11 +22,21 @@
         <materialDesign:Card Grid.Row="1" Margin="20">
             <StackPanel>
                 <Label Content="Username"/>
-                <TextBox x:Name="UsernameTextBox"  Margin="10"/>
+                <TextBox Focusable="True" x:Name="UsernameTextBox"  Margin="10"/>
                 <Label Content="Password"/>
                 <PasswordBox x:Name="PasswordBox" Margin="10"/>
-                <Button Content="Login" Click="LoginButton_Click" HorizontalAlignment="Center" Width="100" Margin="10"/>
+                <Button Click="LoginButton_Click" HorizontalAlignment="Center" Width="120" Margin="10">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
+                            <fa:ImageAwesome Icon="SignIn" Foreground="White" Margin="0 0 5 0" Width="20"/>
+                            <TextBlock Text="Login" FontSize="20" VerticalAlignment="Center"/>
+                        </StackPanel>
+                         
+                    </Button.Content>
+                </Button>
+                
             </StackPanel>
         </materialDesign:Card>
+        
     </Grid>
 </Window>

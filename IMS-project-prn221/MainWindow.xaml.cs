@@ -34,9 +34,9 @@ namespace IMS_project_prn221
             var wh = _context.Warehouses.ToList();
             foreach (var whpart in wh)
             {
-                MenuItem whItem = new MenuItem();
+                TreeViewItem whItem = new TreeViewItem();
                 whItem.Header = whpart.WarehouseName;
-                whItem.Click += wh_Click;
+                whItem.PreviewMouseDoubleClick += wh_Click;
                 whName.Items.Add(whItem);
             }
         }
@@ -54,11 +54,13 @@ namespace IMS_project_prn221
         }
         private void ViewEmployees_Click(object sender, RoutedEventArgs e)
         {
-
+            ViewEmployees viewEmployees = new ViewEmployees();
+            viewEmployees.Show();
         }
         private void AddEmployee_Click(object sender, RoutedEventArgs e)
         {
-
+            AddEmployees addEmployees = new AddEmployees();
+            addEmployees.Show();
         }
         private void OrderHistory_Click(object sender, RoutedEventArgs e)
         {
@@ -76,7 +78,7 @@ namespace IMS_project_prn221
         }
         private void wh_Click(object sender, RoutedEventArgs e)
         {
-            MenuItem whSelected = (MenuItem)sender;
+            TreeViewItem whSelected = (TreeViewItem)sender;
             var wh = _context.Warehouses.ToList();
             foreach (var whpart in wh)
             {

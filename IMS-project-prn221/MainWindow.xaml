@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Menu>
+        
+        <!--<Menu >
             <MenuItem x:Name="whName" Header="Warehouses Management">
             </MenuItem>
             <MenuItem Header="Sells Management">
@@ -23,6 +24,34 @@
             <MenuItem Click="OrderHistory_Click" Header="Order History" />
             <MenuItem Click="Order_Click" Header="Add Order" />
         </MenuItem>
-        </Menu>
+        </Menu>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1.5*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TreeView Background="#673AB7"  Grid.Column="0" Foreground="White" FontSize="20">
+            <TreeViewItem x:Name="whName" Header="Warehouses Management"/>
+
+
+            <TreeViewItem Header="Sells Management">
+                <TreeViewItem PreviewMouseDoubleClick="Chart_Click" Header="Chart" />
+                <TreeViewItem PreviewMouseDoubleClick="Sell_Click" Header="Sell" />
+                <TreeViewItem PreviewMouseDoubleClick="SellHistory_Click" Header="Sell History" />
+            </TreeViewItem>
+
+            <TreeViewItem  x:Name="empManagement" Header="Employees Management">
+                <MenuItem PreviewMouseDoubleClick="ViewEmployees_Click" Header="View Employees" />
+                <MenuItem PreviewMouseDoubleClick="AddEmployee_Click" Header="Add Employee" />
+            </TreeViewItem>
+
+            <TreeViewItem  x:Name="orderManagement" Header="Order Management">
+                <MenuItem PreviewMouseDoubleClick="OrderHistory_Click" Header="Order History" />
+                <MenuItem PreviewMouseDoubleClick="Order_Click" Header="Add Order" />
+            </TreeViewItem>
+        </TreeView>
+        <Image Margin="0 0 -170 0" Source="C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\Assets\Images\ims.png" Grid.Column="1"/>
     </Grid>
 </Window>

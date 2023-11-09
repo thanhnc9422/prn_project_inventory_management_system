@@ -4,25 +4,55 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IMS_project_prn221"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
+
         mc:Ignorable="d"
-        Title="SellWindow" Height="450" Width="800">
+        Title="SellWindow" Height="500" Width="800">
     <Grid>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
+
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="0" Margin="0,0,10,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ListView x:Name="productListView" Grid.Column="0">
+
+            <Grid Grid.Row ="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Label VerticalAlignment="Center" Grid.Row="0" Content="Search Name :"/>
+                <TextBox x:Name="searchTextBox" Grid.Column="1" Grid.Row="0" Margin="10" SelectionChanged="SearchTextBox_TextChanged"   />
+                <Label VerticalAlignment="Center" Grid.Row="1" Content="Warehouse:"/>
+                <ComboBox x:Name="warehousecb" Grid.Row="1" Grid.Column="1" Margin="10" SelectionChanged="SearchTextBox_TextChanged"   />
+            </Grid>
+            <ListView x:Name="productListView" FontSize="10"  Grid.Row ="1" SelectionChanged="ProductListView_SelectionChanged">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Tên Mặt Hàng" Width="150"/>
-                        <GridViewColumn Header="Số Lượng" Width="80"/>
-                        <GridViewColumn Header="Đơn Giá" Width="80"/>
+                        <GridViewColumn Header="Tên Mặt Hàng" Width="80"  DisplayMemberBinding="{Binding Path=Product.ProductName}"/>
+                        <GridViewColumn Header="Số Lượng" Width="120" DisplayMemberBinding="{Binding Path=QuantityAvaiable}"/>
+                        <GridViewColumn Header="Đơn Giá" Width="100" DisplayMemberBinding="{Binding Path=Product.OriginPrice }"/>
+                        <GridViewColumn Header="">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="+" Click="AddToCartButton_Click" Tag="{Binding}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+
                     </GridView>
+
+
                 </ListView.View>
             </ListView>
         </Grid>
@@ -38,12 +68,20 @@
                 <RowDefinition Height="Auto"/>
 
             </Grid.RowDefinitions>
-            <ListView x:Name="cartListView" Height="250" Grid.Row="0">
+            <ListView x:Name="cartListView" FontSize="10" Height="250" Grid.Row="0" PreviewMouseLeftButtonUp="cartListView_PreviewMouseLeftButtonUp" >
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="Tên Mặt Hàng" Width="150"/>
-                        <GridViewColumn Header="Số Lượng" Width="80"/>
-                        <GridViewColumn Header="Đơn Giá" Width="80"/>
+                        <GridViewColumn Header="Tên mặt hàng" Width="150" DisplayMemberBinding="{Binding Product.ProductName }"/>
+                        <GridViewColumn Header="Số lượng mua" Width="120" DisplayMemberBinding="{Binding DeliveryQuantity }"/>
+                        <GridViewColumn Header="Giá gốc" Width="120" DisplayMemberBinding="{Binding Product.OriginPrice}"/>
+                        <GridViewColumn Header="Giá bán" Width="120" DisplayMemberBinding="{Binding SalePrice}"/>
+                        <GridViewColumn Header="Actions">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Delete" Click="DeleteButton_Click" Tag="{Binding}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>
@@ -55,17 +93,27 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Label Content="quantity" Grid.Row="0" Grid.Column="0"/>
-                <TextBox x:Name="quantityTextBox" Grid.Row="0" Grid.Column="1" Margin="0,0,200,0"/>
-                <Label Content="price per product:"  Grid.Row="1" Grid.Column="0"/>
-                <TextBox x:Name="priceTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,200,0"/>
+
+                <Label Content="Nhập số lượng:" Grid.Row="0" Grid.Column="0" Height="25" Grid.RowSpan="2" VerticalAlignment="Top"/>
+                <TextBox x:Name="quantityTextBox" SelectionChanged="quantityTextBox_SelectionChanged" Grid.Row="0" Grid.Column="1" Margin="0,0,200,0"/>
+                <Label Content="Giá khi bán:"  Grid.Row="1" Grid.Column="0" Height="26" VerticalAlignment="Top"/>
+                <TextBox x:Name="priceTextBox" SelectionChanged="priceTextBox_SelectionChanged" Grid.Row="1" Grid.Column="1" Margin="0,0,200,0"/>
+                <Label Content="Số điện thoại khách hàng:"  Grid.Row="2" Grid.Column="0" Height="26" VerticalAlignment="Top"/>
+                <TextBox x:Name="phonetb" SelectionChanged="phonetb_SelectionChanged" Grid.Row="2" Grid.Column="1" Width="200" Margin="0,0,200,0"/>
+                <Label x:Name="cusNewLb" Content="Tên khách hàng mới: "  Grid.Row="3" Grid.Column="0" Height="26" VerticalAlignment="Top"/>
+                <TextBlock x:Name="cusNewTb" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Width="100"  Margin="0,0,200,0"/>
+                <Label Content="Tên khách hàng: "  Grid.Row="4" Grid.Column="0" Height="26" VerticalAlignment="Top"/>
+                <ComboBox x:Name="cusName" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Width="100"  Margin="0,0,200,0"/>
             </Grid>
-            
-            <TextBlock x:Name="totalTextBlock" Grid.Row="2" Text="Tổng: $0"/>
-            <TextBlock x:Name="profitTextBlock" Grid.Row="3" Text="Lợi nhuận: 10%"/>
+
+            <TextBlock x:Name="totalTextBlock" Grid.Row="3" Foreground="Red" FontSize="20"/>
+            <TextBlock x:Name="profitTextBlock" Grid.Row="4" Foreground="Red" FontSize="20" />
             <Button x:Name="sellButton" Grid.Row="6" Content="Sell" Click="SellButton_Click" Width="100"/>
         </Grid>
     </Grid>
-        
+
 </Window>

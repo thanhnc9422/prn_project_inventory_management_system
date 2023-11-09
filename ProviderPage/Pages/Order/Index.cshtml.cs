@@ -35,7 +35,7 @@ namespace ProviderPage.Pages.Order
             }
         }
         public void LoadPage() {
-            orderDetail = _context.OrderDetails.Include(x => x.Product).Include(x => x.Warehouse).ToList();
+            orderDetail = _context.OrderDetails.Include(x => x.Product).Include(x => x.Warehouse).Where(x => x.ProviderId == Provider.ProviderId).ToList();
 
         }
         public void OnPostSuccessOrder(int OrderDetailId) { 

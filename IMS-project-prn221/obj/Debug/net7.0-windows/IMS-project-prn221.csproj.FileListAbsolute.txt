@@ -185,3 +185,5 @@ C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\AddEmployees.baml
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\ViewEmployees.baml
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\bin\Debug\net7.0-windows\FontAwesome.WPF.dll
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\HistorySellWindow.g.cs
+C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\obj\Debug\net7.0-windows\HistorySellWindow.baml

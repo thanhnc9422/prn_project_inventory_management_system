@@ -3,16 +3,13 @@
 @{
 }
 <h1>Xin chào! @Model.Provider.ProviderName</h1>
+<a href="./order">Lịch sử/đặt hàng</a>
 <div class="row">
-
-
-
-
     <div class="col-md-4">
 <form method="post" asp-page-handler="AddNewOrUpdate">
     <div class="form-group">
                 <label for="ProductId">Id sản phẩm: </label>
-                <input name="ProductId" value="@(Model.productSelected.ProductId == 0 ? "":Model.productSelected.ProviderId)" class="form-control" />
+                <input name="ProductId" value="@(Model.productSelected.ProductId == 0 ? "":Model.productSelected.ProductId)" class="form-control" />
         <label for="ProductName">tên sản phẩm: </label>
                 <input name="ProductName" value="@(Model.productSelected == null? "":Model.productSelected.ProductName)" class="form-control" />
     </div>
@@ -81,7 +78,7 @@
             <tbody>
                 @foreach (var p in Model.listProduct)
                 {
-                    if (p.Refrigerated == true) { 
+                    @* if (p.Refrigerated == true) {  *@
                     <tr>
                         <td>@p.ProductName</td>
                         <td>@p.ProductDescription</td>
@@ -99,7 +96,7 @@
                                 </form></td>
                         <!-- Thêm dữ liệu cho bảng -->
                     </tr>
-                    }
+                    @* } *@
                 }
                
             </tbody>

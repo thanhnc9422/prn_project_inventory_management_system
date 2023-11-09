@@ -104,10 +104,8 @@
                 <TextBox x:Name="priceTextBox" SelectionChanged="priceTextBox_SelectionChanged" Grid.Row="1" Grid.Column="1" Margin="0,0,200,0"/>
                 <Label Content="Số điện thoại khách hàng:"  Grid.Row="2" Grid.Column="0" Height="26" VerticalAlignment="Top"/>
                 <TextBox x:Name="phonetb" SelectionChanged="phonetb_SelectionChanged" Grid.Row="2" Grid.Column="1" Width="200" Margin="0,0,200,0"/>
-                <Label x:Name="cusNewLb" Content="Tên khách hàng mới: "  Grid.Row="3" Grid.Column="0" Height="26" VerticalAlignment="Top"/>
-                <TextBlock x:Name="cusNewTb" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Width="100"  Margin="0,0,200,0"/>
                 <Label Content="Tên khách hàng: "  Grid.Row="4" Grid.Column="0" Height="26" VerticalAlignment="Top"/>
-                <ComboBox x:Name="cusName" VerticalAlignment="Center" Grid.Row="4" Grid.Column="1" Width="100"  Margin="0,0,200,0"/>
+                <TextBox x:Name="cusName" Grid.Row="4" Grid.Column="1" Width="100"  Margin="0,0,200,0"/>
             </Grid>
 
             <TextBlock x:Name="totalTextBlock" Grid.Row="3" Foreground="Red" FontSize="20"/>

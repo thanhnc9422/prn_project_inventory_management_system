@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\App.xaml
-10-377942002
+11897820660
 
-23-1048374007
+24-2123270745
 238-489705289
-AddEmployees.xaml;Chart.xaml;ChartWindow.xaml;HistoryOrderWindow.xaml;Login.xaml;MainWindow.xaml;OrderWindow.xaml;SellWindow.xaml;ViewEmployees.xaml;WarehouseWindow.xaml;
+AddEmployees.xaml;Chart.xaml;ChartWindow.xaml;HistoryOrderWindow.xaml;HistorySellWindow.xaml;Login.xaml;MainWindow.xaml;OrderWindow.xaml;SellWindow.xaml;ViewEmployees.xaml;WarehouseWindow.xaml;
 
 False
 

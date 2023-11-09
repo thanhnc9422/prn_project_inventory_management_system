@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,6 +19,8 @@ namespace IMS_project_prn221
         private List<DeliveryDetail> CartItems = new List<DeliveryDetail>();
 
         private List<Inventory> inventories = new List<Inventory>();
+        private Customer customer = new Customer();
+        private bool isNewCustomer;
         public SellWindow()
         {
             InitializeComponent();
@@ -31,8 +34,7 @@ namespace IMS_project_prn221
 
         private void loadData()
         {
-            cusNewLb.Visibility = Visibility.Collapsed;
-            cusNewTb.Visibility = Visibility.Collapsed;
+
             Warehouse warehouse = _context.Warehouses.FirstOrDefault(x => x.WarehouseName.Equals(warehousecb.SelectedItem.ToString()));
             inventories = _context.Inventories.Include(x => x.Product).Include(x => x.Warehouse).Where(x => x.WarehouseId == warehouse.WarehouseId).ToList();
             productListView.ItemsSource = inventories;
@@ -53,14 +55,33 @@ namespace IMS_project_prn221
 
         private void SellButton_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn bán sản phẩm này?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                // Thực hiện việc bán sản phẩm và cập nhật tổng
-                // Sau đó, cập nhật danh sách sản phẩm đã chọn và cập nhật ListView
-                // Đặc biệt, hãy cập nhật thông tin ở cột bên trái và cột bên phải của giao diện
+            if (isNewCustomer) {
+                Customer c = new Customer() {
+                    FirstName = cusName.Text,
+                  Phone = Int32.Parse(phonetb.Text)
+            };
+                _context.Customers.Add(c);
+                _context.SaveChanges();
             }
+            if (CartItems != null) {
+                MessageBoxResult result = MessageBox.Show("Bạn có chắc chắn muốn bán sản phẩm này?", "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    Customer Cus = _context.Customers.FirstOrDefault(x => x.Phone ==  Int32.Parse(customer.Phone.ToString()));
+                    foreach (var item in CartItems)
+                    {
+                        item.CustomerId = Cus.CustomerId;
+                    }
+                    _context.DeliveryDetails.AddRange(CartItems);
+                    _context.SaveChanges();
+                    // Thực hiện việc bán sản phẩm và cập nhật tổng
+                    // Sau đó, cập nhật danh sách sản phẩm đã chọn và cập nhật ListView
+                    // Đặc biệt, hãy cập nhật thông tin ở cột bên trái và cột bên phải của giao diện
+                    MessageBox.Show("Bán hàng thành công!");
+                }
+            }
+          
         }
         private void ProductListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -169,7 +190,7 @@ namespace IMS_project_prn221
                    
                         if (!string.IsNullOrEmpty(quantityTextBox.Text))
                         {
-                        if (Int32.Parse(quantityTextBox.Text) < quantityProductExsit.QuantityAvaiable)
+                        if (Int32.Parse(quantityTextBox.Text) <= quantityProductExsit.QuantityAvaiable)
                         {
                             order.DeliveryQuantity = Int32.Parse(quantityTextBox.Text);
                         }
@@ -232,8 +253,8 @@ namespace IMS_project_prn221
                 {
                 total += (decimal)d.DeliveryQuantity * (decimal)d.SalePrice;
                 }
-            totalTextBlock.Text ="Tổng tiền giỏ hàng: "+ total.ToString() + " $";
-            profitTextBlock.Text = (total - updateTotalPayOrigin()) > 0 ? "lời " + (total - updateTotalPayOrigin()).ToString() + " $" : "lỗ " + ((total - updateTotalPayOrigin())).ToString() + " $";
+            totalTextBlock.Text ="Tổng tiền: "+ total.ToString() + " $";
+            profitTextBlock.Text = "Lợi nhuận: " + (total - updateTotalPayOrigin()).ToString() + " $";
             }
         private decimal updateTotalPayOrigin()
         {
@@ -248,23 +269,20 @@ namespace IMS_project_prn221
 
         private void phonetb_SelectionChanged(object sender, RoutedEventArgs e)
         {
-                if (!string.IsNullOrEmpty(phonetb.Text)) { 
-               
-                List<string> customer = _context.Customers.Where(x => x.Phone.ToString().Contains(phonetb.Text)).Select(x => x.FirstName).ToList();
+            if (!string.IsNullOrEmpty(phonetb.Text))
+            {
+
+             customer = _context.Customers.FirstOrDefault(x => x.Phone.ToString().Contains(phonetb.Text));
                 if (customer != null)
                 {
-                    cusName.ItemsSource = customer.ToList();
-                    cusName.SelectedIndex = 0;
-                    cusNewLb.Visibility = Visibility.Collapsed;
-                    cusNewTb.Visibility = Visibility.Collapsed;
+                    cusName.Text = customer.LastName + " " + customer.FirstName;
 
+                    isNewCustomer = false;
                 }
                 else {
-                    cusNewLb.Visibility = Visibility.Visible;
-                    cusNewTb.Visibility = Visibility.Visible;
-
+                    cusName.Text = string.Empty;
+                    isNewCustomer = true;
                 }
-                
             }
         }
 

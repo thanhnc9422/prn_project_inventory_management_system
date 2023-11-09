@@ -45,7 +45,7 @@ namespace ProviderPage.Pages.Home
             if (product != null)
             {
                 product.Refrigerated = false;
-                _context.Products.Update(product);
+                _context.Products.Remove(product);
                 _context.SaveChanges();
             }
             loadPage();

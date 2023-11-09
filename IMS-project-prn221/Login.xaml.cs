@@ -44,8 +44,7 @@ namespace IMS_project_prn221
                 {
                     MainWindow main = new MainWindow(staff);
                     main.Show();
-                    Login login = new Login();
-                    login.Visibility = Visibility.Collapsed;
+                    this.Close();
                 }
                 else {
                     MessageBox.Show("username hoặc password không đúng!");

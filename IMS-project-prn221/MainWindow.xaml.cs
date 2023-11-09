@@ -69,7 +69,8 @@ namespace IMS_project_prn221
         }
         private void SellHistory_Click(object sender, RoutedEventArgs e)
         {
-
+            HistorySellWindow historySellWindow = new HistorySellWindow();
+            historySellWindow.Show();
         }
         private void Order_Click(object sender, RoutedEventArgs e)
         {

@@ -88,6 +88,15 @@ namespace IMS_project_prn221
                     // Đặc biệt, hãy cập nhật thông tin ở cột bên trái và cột bên phải của giao diện
                     MessageBox.Show("Bán hàng thành công!");
                 }
+                foreach (Inventory x in inventories) {
+                    foreach (DeliveryDetail d in CartItems) {
+                        if(x.ProductId == d.ProductId)
+                        x.QuantityAvaiable -= d.DeliveryQuantity;
+                    }
+                }
+                _context.Inventories.UpdateRange(inventories);
+                _context.SaveChanges();
+                loadData();
             }
           
         }

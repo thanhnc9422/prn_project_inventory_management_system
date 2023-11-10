@@ -138,8 +138,8 @@ namespace IMS_project_prn221
 
             productListView.ItemsSource = inventories;
 
-
-
+            CartItems = new List<DeliveryDetail>();
+            cartListView.ItemsSource = CartItems.ToList();
             //searchTextBox.Text = "";
 
 
@@ -172,6 +172,7 @@ namespace IMS_project_prn221
                 cartListView.ItemsSource = CartItems.ToList();
 
                 // Tính toán tổng và lợi nhuận ở đây (nếu cần)
+                cartListView.SelectedIndex = 0;
             }
             else
             {

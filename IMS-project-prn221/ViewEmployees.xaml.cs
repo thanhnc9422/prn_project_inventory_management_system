@@ -31,22 +31,12 @@ namespace IMS_project_prn221
         private void loadData()
         {
             employees = _context.Staff.Include(x => x.Role).ToList();
-            employeeDataGrid.ItemsSource = employees;
+            dataListView.ItemsSource = employees;
         }
-        private void AddEmployee_Click(object sender, RoutedEventArgs e)
+        private void searchTextBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            // Hiển thị một cửa sổ hoặc trang để thêm nhân viên
-            // Sau khi thêm, cập nhật DataGrid để hiển thị thông tin mới
-        }
-
-        private void DeleteEmployee_Click(object sender, RoutedEventArgs e)
-        {
-            // Kiểm tra xem đã chọn một nhân viên trong DataGrid chưa
-            // Nếu có, xóa nhân viên khỏi cơ sở dữ liệu và cập nhật DataGrid
-        }
-        private void EditEmployee_Click(object sender, RoutedEventArgs e)
-        {
-            
+            employees = _context.Staff.Include(x => x.Role).Where(x => x.FirstName.Contains(searchTextBox.Text)).ToList();
+            dataListView.ItemsSource = employees;
         }
     }
 }

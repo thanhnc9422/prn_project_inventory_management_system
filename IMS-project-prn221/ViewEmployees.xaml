@@ -6,21 +6,23 @@
         xmlns:local="clr-namespace:IMS_project_prn221"
         mc:Ignorable="d"
         Title="View Employees" Height="450" Width="800">
-    <Grid Margin="6,0,-6,0">
-        <DataGrid Name="employeeDataGrid" AutoGenerateColumns="False" HorizontalAlignment="Left" Height="372" Width="790" VerticalAlignment="Top">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="First Name" Binding="{Binding Path=FirstName}" />
-                <DataGridTextColumn Header="Last Name" Binding="{Binding Path=LastName}" />
-                <DataGridTextColumn Header="Address" Binding="{Binding Path=Address}" />
-                <DataGridTextColumn Header="Phone" Binding="{Binding Path=Phone}" />
-                <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" />
-                <DataGridTextColumn Header="User Name" Binding="{Binding Path=UserName}" />
-                <DataGridTextColumn Header="Role" Binding="{Binding Path=Role.RoleName}" />
-            </DataGrid.Columns>
-        </DataGrid>
+    <Grid>
+        <TextBox x:Name="searchTextBox" Width="200" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="80,10,10,0" SelectionChanged="searchTextBox_SelectionChanged"/>
 
-        <Button Content="Add Employee" Click="AddEmployee_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="149" Margin="10,0,0,16" />
-        <Button Content="Edit Employee" Click="EditEmployee_Click" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="133" Margin="0,0,459,16" />
-        <Button Content="Delete Employee" Click="DeleteEmployee_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Width="168" Margin="395,386,0,0" />
+        <!-- Button để thực hiện tìm kiếm -->
+        <Label Content="Tìm kiếm" Width="80" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,10,100,0"/>
+
+        <!-- ListView để hiển thị dữ liệu -->
+        <ListView x:Name="dataListView" VerticalAlignment="Top" Margin="10,40,10,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Tên khách hàng" Width="200" DisplayMemberBinding="{Binding Path=FirstName}"/>
+                    <GridViewColumn Header="Địa chỉ" Width="200" DisplayMemberBinding="{Binding Path=Address}"/>
+                    <GridViewColumn Header="Số điện thoại" Width="200" DisplayMemberBinding="{Binding Path=Phone}"/>
+                    <GridViewColumn Header="Email" Width="100" DisplayMemberBinding="{Binding Path=Email}"/>
+                    <GridViewColumn Header="Role" Width="100" DisplayMemberBinding="{Binding Path=Role.RoleName}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </Window>

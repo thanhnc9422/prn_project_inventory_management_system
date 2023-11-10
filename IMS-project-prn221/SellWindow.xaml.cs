@@ -68,7 +68,15 @@ namespace IMS_project_prn221
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    Customer Cus = _context.Customers.FirstOrDefault(x => x.Phone ==  Int32.Parse(customer.Phone.ToString()));
+                    Customer Cus;
+                    if (isNewCustomer)
+                    {
+                       Cus = _context.Customers.FirstOrDefault(x => x.Phone == Int32.Parse(phonetb.Text));
+
+                    }
+                    else {
+                       Cus = _context.Customers.FirstOrDefault(x => x.Phone == Int32.Parse(customer.Phone.ToString()));
+                    }
                     foreach (var item in CartItems)
                     {
                         item.CustomerId = Cus.CustomerId;

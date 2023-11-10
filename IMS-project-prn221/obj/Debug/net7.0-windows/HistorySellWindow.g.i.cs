@@ -85,7 +85,7 @@ namespace IMS_project_prn221 {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/IMS-project-prn221;V1.0.0.0;component/historysellwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/IMS-project-prn221;component/historysellwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\HistorySellWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -91,6 +91,14 @@ namespace IMS_project_prn221
             }
 
         }
+
+
+        private void signOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Close();
+        }
     }
 
 }

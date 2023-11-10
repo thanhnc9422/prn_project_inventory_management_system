@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IMS_project_prn221"
+         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -53,5 +54,12 @@
             </TreeViewItem>
         </TreeView>
         <Image Margin="0 0 -170 0" Source="C:\Users\nguye\OneDrive\Desktop\IMS-project-prn221\IMS-project-prn221\Assets\Images\ims.png" Grid.Column="1"/>
+   <Button x:Name="signOutBtn" Click="signOutBtn_Click" Margin="270 -370 0 0" Background="White"
+  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+  Style="{StaticResource MaterialDesignFloatingActionButton}"
+  ToolTip="MaterialDesignFloatingActionButton">
+            <fa:ImageAwesome Icon="SignOut" Foreground="#673AB7" Margin="0 0 5 0" Width="20"/>
+
+        </Button>
     </Grid>
 </Window>

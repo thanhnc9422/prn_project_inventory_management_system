@@ -20,12 +20,11 @@ namespace IMS_project_prn221
     /// </summary>
     public partial class Login : Window
     {
-        private readonly InventoryManagementContext context;
-        public Login() { 
-        }
-        public Login(InventoryManagementContext context)
+        private readonly InventoryManagementContext context = new InventoryManagementContext();
+
+        public Login()
         {
-            this.context = context;
+   
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }

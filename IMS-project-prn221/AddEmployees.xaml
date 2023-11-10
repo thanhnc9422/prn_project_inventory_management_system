@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IMS_project_prn221"
         mc:Ignorable="d"
-        Title="Add Employees" Height="450" Width="800">
+        Title="Add Employees" Height="400" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
@@ -49,11 +49,14 @@
             <PasswordBox Name="txtPassword" Width="200" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" Margin="5"  />
 
             <Label Content="Role" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="0" Grid.Row="7"  />
-            <ComboBox Name="cmbRole" Width="200" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" Margin="5" Text="{Binding UserName }" DataContext="{Binding SelectedItem,ElementName=EmployeeListsView}" />
+            <ComboBox Name="cmbRole" Width="200" Grid.Row="7" Grid.Column="1" HorizontalAlignment="Right" Margin="5" SelectedValue="{Binding Role.RoleName }" DataContext="{Binding SelectedItem,ElementName=EmployeeListsView}" />
 
-            <Button x:Name="btnAddEmployee" Content="Add Employee" Click="AddEmployee_Click" Grid.Row="8" Margin="105,10,72,10" />
-            <Button x:Name="btnEditEmployee" Content="Edit" Click="EditEmployee_Click" Grid.Row="9" Margin="105,10,72,10" />
-            <Button Content="Cancel" Click="Cancel_Click" Grid.Row="10" Margin="105,8,72,2" />
+            <StackPanel Orientation="Horizontal"  Grid.Row="8">
+                <Button x:Name="btnAddEmployee" Width="130" Content="Add Employee" Click="AddEmployee_Click" Margin="10 0 0 0"/>
+                <Button x:Name="btnEditEmployee" Content="Edit" Width="60" Click="EditEmployee_Click" Margin="10 0 0 0" />
+                <Button Content="Cancel" Click="Cancel_Click" Width="80" Margin="10 0 10 0"/>
+
+            </StackPanel>
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>

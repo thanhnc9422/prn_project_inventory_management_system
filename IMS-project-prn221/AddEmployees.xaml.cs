@@ -1,4 +1,5 @@
 ﻿using IMS_project_prn221.Models;
+using MaterialDesignThemes.Wpf.Internal;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,7 @@ namespace IMS_project_prn221
         }
         private void LoadData()
         {
+            cmbRole.ItemsSource = _context.Roles.Select(x => x.RoleName).ToList();
             listStaffs = _context.Staff.Include(x => x.Role).ToList();
             EmployeeListsView.ItemsSource = listStaffs;
         }
@@ -44,7 +46,7 @@ namespace IMS_project_prn221
                 {
                     // Lấy danh sách các vai trò từ cơ sở dữ liệu
                     List<Role> roles = context.Roles.ToList();
-                    List<String> listRole = roles.Select(x=>x.RoleName).ToList();
+                    List<String> listRole = roles.Select(x => x.RoleName).ToList();
 
                     // Gán danh sách các vai trò cho ComboBox
                     cmbRole.ItemsSource = listRole;
@@ -64,7 +66,7 @@ namespace IMS_project_prn221
             int phone = int.Parse(txtPhone.Text);
             string email = txtEmail.Text;
             string username = txtUsername.Text;
-            string password = txtPassword.Password;
+            string password = txtPassword.Password.ToString();
             //Role selectedRole = (Role)cmbRole.SelectedItem;
 
 
@@ -82,14 +84,7 @@ namespace IMS_project_prn221
             };
             _context.Staff.Add(newEmployee);
             _context.SaveChanges();
-
-            txtFirstName.Clear();
-            txtLastName.Clear();
-            txtAddress.Clear();
-            txtPhone.Clear();
-            txtEmail.Clear();
-            txtUsername.Clear();
-            txtPassword.Clear();
+            clearText();
             cmbRole.SelectedIndex = -1;
             LoadData();
             MessageBox.Show("add successfully!!");
@@ -97,6 +92,72 @@ namespace IMS_project_prn221
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
+            clearText();
+            cmbRole.SelectedIndex = -1;
+        }
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button deleteButton = (Button)sender;
+            Staff employee = deleteButton.Tag as Staff;
+            if (employee != null)
+            {
+                _context.Staff.Remove(employee);
+                _context.SaveChanges(true);
+                LoadData();
+                MessageBox.Show($"{employee.LastName + employee.FirstName} have been deleted ");
+            }
+        }
+
+        private void EditEmployee_Click(object sender, RoutedEventArgs e)
+        {
+
+            // Lấy thông tin của nhân viên được chọn
+            Staff selectedEmployee = (Staff)EmployeeListsView.SelectedItem;
+            if (EmployeeListsView.SelectedItem != null)
+            {
+                Staff staff = _context.Staff.FirstOrDefault(x => x.StaffId == selectedEmployee.StaffId);
+
+                if (staff != null)
+                {
+                    staff.FirstName = txtFirstName.Text;
+                    staff.LastName = txtLastName.Text;
+                    staff.Address = txtAddress.Text;
+                    staff.Phone = Int32.Parse(txtPhone.Text);
+                    staff.Email = txtEmail.Text;
+                    staff.UserName = txtUsername.Text;
+                    staff.PassWord = txtPassword.Password.ToString();
+                    staff.RoleId = _context.Roles.FirstOrDefault(x => x.RoleName.Equals(cmbRole.SelectedItem.ToString())).RoleId;
+                }
+                // Hiển thị thông tin nhân viên trong các trường nhập liệu để có thể chỉnh sửa
+
+
+                _context.Staff.Update(staff);
+                _context.SaveChanges();
+
+                // Đặt Role trong ComboBox cho nhân viên
+                //cmbRole.SelectedItem = selectedEmployee.Role.RoleName;
+
+                // Ẩn nút "Add" và hiển thị nút "Save" để cho phép lưu chỉnh sửa
+
+                // Lưu thông tin nhân viên được chỉnh sửa
+                clearText();
+                LoadData();
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một nhân viên để chỉnh sửa.");
+            }
+        }
+
+        //private void EmployeeListsView_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    Staff staff = (Staff)EmployeeListsView.SelectedItem;   
+        //    if (staff != null) {
+        //    cmbRole.SelectedValue = staff.Role.RoleName;
+        //    }
+        //}
+        private void clearText()
+        {
             txtFirstName.Clear();
             txtLastName.Clear();
             txtAddress.Clear();
@@ -106,48 +167,5 @@ namespace IMS_project_prn221
             txtPassword.Clear();
             cmbRole.SelectedIndex = -1;
         }
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button deleteButton = (Button)sender;
-            var employee = deleteButton.Tag as Staff;
-            if (employee != null)
-            {
-                _context.Staff.Remove(employee);
-                _context.SaveChanges(true);
-                LoadData();
-                MessageBox.Show($"{employee.LastName+employee.FirstName } have been deleted ");
-            }
-        }
-
-        private void EditEmployee_Click(object sender, RoutedEventArgs e)
-        {
-            if (EmployeeListsView.SelectedItem != null)
-            {
-                // Lấy thông tin của nhân viên được chọn
-                Staff selectedEmployee = (Staff)EmployeeListsView.SelectedItem;
-
-                // Hiển thị thông tin nhân viên trong các trường nhập liệu để có thể chỉnh sửa
-                txtFirstName.Text = selectedEmployee.FirstName;
-                txtLastName.Text = selectedEmployee.LastName;
-                txtAddress.Text = selectedEmployee.Address;
-                txtPhone.Text = selectedEmployee.Phone.ToString();
-                txtEmail.Text = selectedEmployee.Email;
-                txtUsername.Text = selectedEmployee.UserName;
-
-                // Đặt Role trong ComboBox cho nhân viên
-                //cmbRole.SelectedItem = selectedEmployee.Role.RoleName;
-
-                // Ẩn nút "Add" và hiển thị nút "Save" để cho phép lưu chỉnh sửa
-                btnAddEmployee.Visibility = Visibility.Collapsed;
-                btnEditEmployee.Visibility = Visibility.Visible;
-
-                // Lưu thông tin nhân viên được chỉnh sửa
-                selectedEmployeeToEdit = selectedEmployee;
-            }
-            else
-            {
-                MessageBox.Show("Vui lòng chọn một nhân viên để chỉnh sửa.");
-            }
-        }
     }
-}
+    }
